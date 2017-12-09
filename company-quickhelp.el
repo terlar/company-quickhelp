@@ -64,6 +64,11 @@ be triggered manually using `company-quickhelp-show'."
                  (const :tag "Don't limit the number of lines shown" nil))
   :group 'company-quickhelp)
 
+(defcustom company-quickhelp-use-system-tooltip nil
+  "When not NIL. uses the system tooltip for popup."
+  :type '(choice (boolean :tag "Use system tooltip"))
+  :group 'company-quickhelp)
+
 (defcustom company-quickhelp-color-foreground nil
   "Popup text foreground color."
   :type '(choice (color)
@@ -186,7 +191,7 @@ currently active `company' completion candidate."
                              (if ovl (overlay-get ovl 'company-width) 0)))
            (overlay-position (* (frame-char-width)
                                 (- (if ovl (overlay-get ovl 'company-column) 1) 1)))
-           (x-gtk-use-system-tooltips nil)
+           (x-gtk-use-system-tooltips company-quickhelp-use-system-tooltip)
            (fg-bg `(,company-quickhelp-color-foreground
                     . ,company-quickhelp-color-background)))
       (when (and ovl doc)
